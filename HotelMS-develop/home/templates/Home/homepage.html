@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+   <html>
+      <head>
+        <title> Fouses Hotels </title>
+        <link rel="stylesheet" href="{% static '/home/css/homepage.css' %}">
+        <link rel="stylesheet" href="{% static '/home/css/contact.css' %}">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/d8f6b964b3.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+      </head>    
+         <body>
+              <header class="navigation">
+                 <div class="back-image">  
+                    <div class="logo-image">
+                      <img src="{%static '/home/img/logoimg.png ' %} " height="60px" width="200px">
+                    </div>  
+                    <div class="navbar-list">
+                      <ul>  
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About-Us</a></li>
+                        <li><a href="#">Rooms</a></li>
+                        <li><a href="#">Dining</a></li>
+                        <li><a href="#">Gallary</a></li>
+                        <li id="nav-contact"><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                        <li id="nav-login">
+                          {% if user.authenticated %}
+                            <a href="{% url 'logout'%}">Logout</a>
+                           {% else %}
+                            <a href="{% url 'login' %}">Login</a>
+                          {% endif %}
+                        </li>  
+                        <li id="nav-search">
+                            <input type="text" placeholder="Search"></input>
+                            <i class="fas fa-search"></i>
+                        </li>  
+                     </ul> 
+                    </div> 
+                  </div>   
+                  <div class="content-header"> 
+                      <h1>Awaken To Different World </h1> 
+                     <p>Your Historic Dwelling in The Heart of City.</p>
+                      <div class="booking-bar">
+                        <div class="bookings">
+                          <div class="check-in">
+                            <div class="arrival">
+                              <span>Arrival</span>
+                              <i class="fas fa-chevron-down"></i>
+                            </div>  
+                          </div> 
+                          <div class="check-in">
+                           <div class="arrival"> 
+                             <span>Departure</span>
+                             <i class="fas fa-chevron-down"></i>
+                           </div>
+                          </div>  
+                          
+                          <div class="check-in">
+                            <input type="text" class="guests" placeholder="No. Of Guests"></input>    
+                          </div>   
+                        
+                          <div class="check-in">
+                            <input type="text" class="guests" placeholder="No. Of Rooms"></input>  
+                            
+                          </div>
+                          <div class="check-available">
+                            <button class="btn-avail" type="submit" >Check Availability</button>
+                          </div>
+                        </div>  
+                      </div>
+                  </div> 
+                </div>
+              </header> 
+           <section class="us-about">
+               <div class="about-container">
+                 <div class="about-padding">
+                   <div class="about-image">
+                      <h2>About Us</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum tincidunt arcu. Donec ac convallis mi, ac interdum mauris. Morbi consequat nunc lacinia, dictum ligula in, malesuada urna. In sagittis euismod magna, eu consequat velit rhoncus quis. Aliquam nec arcu.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique sapien libero, id condimentum ligula vestibulum sed. Ut ac ipsum non eros pretium consectetur. Nunc accumsan.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique sapien libero, id condimentum ligula vestibulum sed. Ut ac ipsum non eros pretium consectetur. Nunc accumsan.</p>
+                      <button class="btn-read">Read More</button>
+                   </div>   
+                  </div> 
+               </div>    
+            </section>
+            <section class="rooms">
+              <div class="container-rooms">
+                <h2>Our Rooms</h2>
+                <div class="flex-rooms">
+                  {% for style,price,rating,show_on_homepage,room_available_count in mylist %}
+                  {% if show_on_homepage %}
+                  <div class="rooms-row">
+                    <a href="#">
+                      <div class="module row-content" id="mySlides"> 
+                        <div class="heading"><p>{{ style }}</p></div>
+                        <div class="ratings">
+                          <p>Ratings :
+                            {% with ''|center:rating as range %}
+                            {% for _ in range %}
+                            <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% endwith %}
+                          </p>
+                        </div>
+                        <div class="available">
+                          <p>Available {{ room_available_count }}</p>
+                        </div>  
+                        <div class="rates">
+                          <p id="rupee"><i class="fas fa-rupee-sign"></i>{{ price }}</p>
+                        </div>  
+                      </div>
+                    </a> 
+                   
+                  </div>
+                 {% endif %}
+                  {% endfor %}
+                <button class="view-btn">View More </button>
+               </div>    
+            </section>
+            <section class="service-container">
+              <h3>Our Serivces</h3>
+              <div class="flex-services">
+                <div class="padding-services">
+                  <div class="service">
+                    <img src="{% static '/home/img/s1.png' %}" height="80px" width="80px">
+                    <p>Spa</p>
+                  </div>
+                </div>  
+                <div class="padding-services">
+                  <div class="service">
+                    <img src="{% static '/home/img/s2.png' %}" height="80px" width="80px">
+                    <p>Gym</p>
+                  </div>
+                </div>  
+                <div class="padding-services">
+                  <div class="service">
+                    <img src="{% static '/home/img/s3.png' %}"height="80px" width="80px">
+                    <p>24/7 Wifi</p>
+                  </div>
+                </div>  
+                <div class="padding-services">
+                  <div class="service">
+                    <img src="{% static '/home/img/s4.png' %}" height="80px" width="80px">
+                    <p>Private Chef</p>
+                  </div>
+                </div>  
+                <div class="padding-services">
+                  <div class="service">
+                    <img src="{% static '/home/img/s5.png' %}" height="80px" width="80px">
+                    <p>Pick & Drop</p>
+                  </div>
+                </div>  
+              </div>  
+            </section>
+            <section class="container-resto">
+              <div class="resto">
+                <div class="booking">
+                  <div class="resto-book">
+                    <p>Book Table</p>
+                    <img src="{% static '/home/img/heading-dark.png' %}" width="100px" height="20px">
+                    <form action="#" method="POST">
+                      {% csrf_token %}
+                    <input placeholder="Name" type="Text" name="name"></input>
+                    <input placeholder="Phone Number" type="tel" name="phonenumber"></input>
+                    <input placeholder="Person" type="number" name="number_of_persons"></input>
+                    <input placeholder="Date" type="date" name="date"></input>
+                    <input placeholder="Time" type="time" name="time"></input>
+                    <button class="resto-btn" type="submit" >Book</button>
+                    </form>
+                  </div>
+                </div> 
+                <div class="resto-heading">
+                  <h2>Restaurant</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum tincidunt arcu. Donec ac convallis mi, ac interdum mauris. Morbi consequat nunc lacinia, dictum ligula in, malesuada urna.</p>
+                </div>   
+              </div>  
+            </section>  
+            <section class="reviews">
+              <div class="reviews-container">
+                <div class="image-review">
+                  <div class="review-image">
+                    <img src="{% static '/home/img/p-1.jpg '%}" height="160px" width="180px">
+                  </div>
+                  <div class="review-content">
+                    <h3>Martha</h3>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  </div>    
+                </div>  
+                <div class=image-review>
+                  <div class="review-image">
+                    <img src="{% static '/home/img/p-2.jpg '%}" height="160px" width="180px">
+                  </div>
+                  <div class="review-content">
+                    <h3>Jonas</h3>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  </div>    
+                </div>  
+              </div>  
+            </section>  
+            <section class="gallery">
+              <div class="gallery-container">
+                <h2>Gallery</h2>
+                <div class="tab">
+                  <button class="tablinks" onclick="openCity(event, 'ground')" id="defaultOpen">Hotel & Ground</button>
+                  <button class="tablinks" onclick="openCity(event, 'suite')">Room/Suite</button>
+                  <button class="tablinks" onclick="openCity(event, 'dining')">Dining</button>
+                </div>
+                <div class="gallery-content">
+                  <div id="ground" class="tabcontent">
+                    <img src="{% static '/home/img/pool.jpg'%}"  height="290px" width="320px">
+                    <img src="{% static '/home/img/1.jpg'%}"   height="290px" width="320px" id="img2">
+                    <img src="{% static '/home/img/2.jpg'%}"    height="290px" width="320px" id="img3">
+                    <img src="{% static '/home/img/3.jpg'%}"    height="290px" width="320px" id="img4">
+                  </div>
+                </div> 
+                <div  class="gallery-content">
+                  <div id="suite" class="tabcontent">
+                    <img src="{% static '/home/img/bed-6.jpg'%}"  height="290px" width="320px" id="img5">
+                    <img src="{% static '/home/img/bed-5.jpg'%}"  height="290px" width="320px" id="img6">
+                    <img src="{% static '/home/img/bed-3.jpg'%}"  height="290px" width="320px" id="img7">
+                    <img src="{% static '/home/img/bed-4.jpg'%}"  height="290px" width="320px" id="img8">
+                  </div>
+                </div>  
+                <div  class="gallery-content">
+                  <div id="dining" class="tabcontent">
+                    <img src="{% static '/home/img/pool.jpg'%}"  height="290px" width="320px" id="img9">
+                    <img src="{% static '/home/img/1.jpg'%}"     height="290px" width="320px" id="img010">
+                    <img src="{% static '/home/img/2.jpg'%}"     height="290px" width="320px" id="img011">
+                    <img src="{% static '/home/img/3.jpg'%}"     height="290px" width="320px" id="img012">
+                  </div>
+                </div> 
+                <button class="view-btn">View More </button> 
+              </div>  
+              <!-- modal html for images  -->
+                
+            </section> 
+            <!-- BOOKING OPTIONS -->
+            <section class="book-now">
+              <div class="book-heading">
+                <h2>Choose How To Book</h2>
+              </div> 
+              <div class="book-option">   
+                <div class="padding-book"> 
+                  <a href="#">         
+                   <div class="book-online">
+                     <i class="far fa-calendar-alt"></i>
+                     <h5>Check Availability <br> & Book Online </h5>
+                   </div>
+                  </a> 
+                </div>
+                <div class="padding-book">  
+                  <a href="#"> 
+                    <div class="book-online"">
+                     <i class="fas fa-phone-alt"></i>
+                     <h5>Call Us</h5>
+                     <h5>+91 2222 456789</h5> 
+                    </div>
+                  </a>  
+                </div>
+                <div class="padding-book"> 
+                  <a href="#"> 
+                   <div class="book-online">
+                     <i class="fas fa-headset"></i>
+                     <h5>We Call You <br> Back </h5>
+                   </div>
+                  </a> 
+                </div>   
+              </div>   
+             <a href="#"> <button class="book-btn">Book On Website It's Worth</button> </a> 
+            </section>   
+            <footer class="footer">
+              <div class="footer-bg">
+                  <img src="{% static 'home/img/footer.png'%}" height="50px" width="50px">
+                  <h3>NEWS & OFFERS</h3>
+                  <h5>Enjoy many benefits and receive our promotions and special offers directly</h5>
+                  <div class="email">
+                      <input type="text" placeholder="Your E-mail Address"></input>
+                      <i class="fas fa-paper-plane"></i>
+                  </div>
+              </div>
+              <div class="social-media">
+                  <div class="copyright">
+                      <p>© 2020 Lorem Ipsum Hotels</p>
+                  </div>
+                  <div class="icons">
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-facebook-square"></i>
+                      <i class="fab fa-twitter"></i>
+                  </div>
+                  <div class="payment">
+                      <i class="fab fa-cc-paypal"></i>
+                      <i class="fab fa-cc-mastercard"></i>
+                      <i class="fab fa-cc-visa"></i>
+                  </div>
+              </div>
+          </footer>
+            <!--*Java Script For Gallery*-->
+            <script>
+              function openCity(evt, cityName) {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+            </script> 
+            
+          </body>   
+   </html>    
